@@ -19,7 +19,8 @@ for iter = 1:num_iters
 
    
     h = X * theta;
-    summation =  X' *(h - y);
+    error = h - y;
+    summation =  X' * error;
     theta = theta - (alpha/m) * summation;
 
 

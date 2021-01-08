@@ -36,17 +36,15 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
-h = sigmoid( X * theta );
+% calculate hypothesis
+h = sigmoid(X*theta);
 
-theta(1:1) = 0;
+% regularize theta by removing first value
+theta_reg = [0;theta(2:end, :);];
 
-reg = (lambda / (2 * m)) * (theta' * theta);
+J = (1/m)*(-y'* log(h) - (1 - y)'*log(1-h))+(lambda/(2*m))*theta_reg'*theta_reg;
 
-error = -y .* log(h) - (1 - y) .* log(1 - h) + reg;
-
-grad = (1 / m) .*  (X' * ( h - y)) + (lambda / m) * theta;
-
-J = (1/m) * sum(error) ;
+grad = (1/m)*(X'*(h-y)+lambda*theta_reg);
 
 
 
